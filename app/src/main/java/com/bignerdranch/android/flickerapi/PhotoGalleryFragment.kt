@@ -78,11 +78,20 @@ class PhotoGalleryFragment : Fragment() {
     private inner class ImageHolder(view: View) : RecyclerView.ViewHolder(view) {
         lateinit var image:GalleryItem
         var photoView:ImageView=view.findViewById(R.id.item_image_view)
-
         fun bind(photo:GalleryItem){
            this.image=photo
-            Picasso.get().load(photo.url).into(photoView)
-
+            Log.d("fff",photo.url)
+            Glide.with(itemView)
+                .load(photo.url)
+                .centerCrop()
+                .fitCenter()
+                .centerCrop()
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .fallback(R.drawable.ic_launcher_foreground)
+                .into(photoView)
         }
     }
     private inner class ImageAdapter(var photo:List<GalleryItem>) : RecyclerView.Adapter<ImageHolder>() {
