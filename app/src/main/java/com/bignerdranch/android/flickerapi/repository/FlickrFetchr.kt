@@ -19,7 +19,7 @@ class FlickrFetchr (private val flickrApi: FlickrApi) {
     fun searchPhotos(lon: String,lat:String): LiveData<List<GalleryItem>> {
         return fetchPhotoMetadata(searchPhotosRequest(lon,lat))
     }
-    private fun fetchPhotoMetadata(flickrRequest: Call<FlickerResponse>)
+     fun fetchPhotoMetadata(flickrRequest: Call<FlickerResponse>)
             : LiveData<List<GalleryItem>> {
         val responseLiveData: MutableLiveData<List<GalleryItem>> = MutableLiveData()
         flickrRequest.enqueue(object : Callback<FlickerResponse> {
@@ -31,6 +31,8 @@ class FlickrFetchr (private val flickrApi: FlickrApi) {
             override fun onResponse(call: Call<FlickerResponse>, response: Response<FlickerResponse>) {
                 Log.d(TAG, "Response received")
                 val flickrResponse: FlickerResponse? = response.body()
+                Log.d(TAG, "Response received")
+
                 val photoResponse: PhotoResponse? = flickrResponse?.photos
                 var galleryItems: List<GalleryItem> = photoResponse?.photos
                         ?: mutableListOf()

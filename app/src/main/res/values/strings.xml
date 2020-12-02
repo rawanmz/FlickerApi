@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Photo Gallery </string>
+    <string name="app_name">Flickr Api </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Select Location</string>
+    <string name="home">Home</string>
+    <string name="map">Map</string>
+
 </resources>
