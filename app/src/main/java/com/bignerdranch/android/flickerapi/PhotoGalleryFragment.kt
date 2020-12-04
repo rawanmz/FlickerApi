@@ -115,7 +115,10 @@ class PhotoGalleryFragment : Fragment() {
            var photo=this.photo[position]
             holder.bind(photo)
             holder.itemView.item_image_view.setOnClickListener{
-                photoViewModel.addPhoto(photo)
+                photoViewModel.apply {
+                    addPhoto(photo)
+
+                }
             }
         }
         override fun getItemCount(): Int {
