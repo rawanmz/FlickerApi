@@ -16,9 +16,12 @@ private const val TAG = "FlickrFetchr"
 class FlickrFetchr (private val phototDao : PhotoDao,
                     private val flickrApi: FlickrApi) {
     val readAllProduct : LiveData<List<GalleryItem>> = phototDao.readAllPhoto()
-suspend fun addPhoto(photo:GalleryItem){
-    phototDao.addPhoto(photo)
-}
+    suspend fun addPhoto(photo:GalleryItem){
+        phototDao.addPhoto(photo)
+    }
+    suspend fun deletePhoto(photo:GalleryItem){
+        phototDao.deletePhoto(photo)
+    }
     fun searchPhotosRequest(lon: String,lat:String): Call<FlickerResponse> {
         return flickrApi.searchPhotos(lon,lat)
     }

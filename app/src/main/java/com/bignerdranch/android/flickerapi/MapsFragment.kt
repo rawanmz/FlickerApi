@@ -92,8 +92,8 @@ class MapsFragment : Fragment() {
             pickLocationTextView.setText("Normal mode")
         }
     }
-    var markers = mutableMapOf<String,Marker>();
-    var items = mutableMapOf<String, GalleryItem>();
+    var markers = mutableMapOf<String,Marker>()
+    var items = mutableMapOf<String, GalleryItem>()
     fun loadThumbnails(searchLoaction:LatLng) {
         Log.d("fff" , "loadThumbnails");
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLoaction, 14f))
