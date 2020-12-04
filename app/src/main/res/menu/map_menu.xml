@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/pin"
-        android:icon="@drawable/ic_pin"
+        android:id="@+id/Like"
+        android:icon="@drawable/ic_favorite"
         android:iconTint="#fff"
-        android:title="@string/map"/>
+        android:title="@string/like"/>
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_baseline_home"
@@ -12,5 +12,5 @@
     <item
         android:id="@+id/pickLocationMode"
         android:icon="@drawable/ic_baseline_add_location_alt_24"
-        android:title="Pick Location"/>
+        android:title="@string/pick_location"/>
 </menu>

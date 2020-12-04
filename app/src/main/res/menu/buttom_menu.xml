@@ -10,6 +10,6 @@
         android:title="@string/home"/>
     <item
         android:id="@+id/like"
-        android:icon="@drawable/ic_baseline_home"
-        android:title="Like"/>
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/like"/>
 </menu>

@@ -5,5 +5,8 @@
     <string name="title_activity_maps">Select Location</string>
     <string name="home">Home</string>
     <string name="map">Map</string>
+    <string name="like">Favorite</string>
+    <string name="pick_location">Pick Location</string>
+
 
 </resources>

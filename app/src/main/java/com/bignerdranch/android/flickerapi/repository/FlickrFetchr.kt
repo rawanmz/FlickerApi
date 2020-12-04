@@ -5,14 +5,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bignerdranch.android.flickerapi.api.FlickerResponse
 import com.bignerdranch.android.flickerapi.api.FlickrApi
-import com.bignerdranch.android.flickerapi.api.GalleryItem
+import com.bignerdranch.android.flickerapi.data.GalleryItem
 import com.bignerdranch.android.flickerapi.api.PhotoResponse
+import com.bignerdranch.android.flickerapi.database.PhotoDao
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG = "FlickrFetchr"
-class FlickrFetchr (private val flickrApi: FlickrApi) {
+class FlickrFetchr (private val phototDao : PhotoDao,
+                    private val flickrApi: FlickrApi) {
+    val readAllProduct : LiveData<List<GalleryItem>> = phototDao.readAllPhoto()
+suspend fun addPhoto(photo:GalleryItem){
+    phototDao.addPhoto(photo)
+}
     fun searchPhotosRequest(lon: String,lat:String): Call<FlickerResponse> {
         return flickrApi.searchPhotos(lon,lat)
     }

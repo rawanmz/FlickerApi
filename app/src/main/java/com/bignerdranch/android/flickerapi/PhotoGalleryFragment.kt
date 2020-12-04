@@ -1,6 +1,5 @@
 package com.bignerdranch.android.flickerapi
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -13,17 +12,17 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bignerdranch.android.flickerapi.api.GalleryItem
+import com.bignerdranch.android.flickerapi.data.GalleryItem
 import com.bignerdranch.android.flickerapi.viewmodel.PhotoGalleryViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.image_list_item.view.*
 import java.util.*
-import kotlin.math.log
 
 class PhotoGalleryFragment : Fragment() {
     private lateinit var photoViewModel:PhotoGalleryViewModel
@@ -42,7 +41,7 @@ class PhotoGalleryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_photo_gallery, container, false)
         photoViewModel=ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
         photoRecyclerView = view.findViewById(R.id.photo_recycler_view)
-        photoRecyclerView.layoutManager = GridLayoutManager(context, 3)
+        photoRecyclerView.layoutManager = GridLayoutManager(context, 2)
          currentlocation = LocationServices.getFusedLocationProviderClient(requireContext())
            //git Current location
         if (ActivityCompat.checkSelfPermission(
@@ -74,11 +73,10 @@ class PhotoGalleryFragment : Fragment() {
 
         return view
     }
-
     private inner class ImageHolder(view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var image:GalleryItem
+        lateinit var image: GalleryItem
         var photoView:ImageView=view.findViewById(R.id.item_image_view)
-        fun bind(photo:GalleryItem){
+        fun bind(photo: GalleryItem){
            this.image=photo
             Log.d("fff",photo.url)
             Glide.with(itemView)
@@ -86,8 +84,8 @@ class PhotoGalleryFragment : Fragment() {
                 .centerCrop()
                 .fitCenter()
                 .centerCrop()
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.ic_baseline_cloud_download_24)
+                .error(R.drawable.ic_baseline_error_24)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .fallback(R.drawable.ic_launcher_foreground)
@@ -102,9 +100,10 @@ class PhotoGalleryFragment : Fragment() {
         override fun onBindViewHolder(holder: ImageHolder, position: Int) {
            var photo=this.photo[position]
             holder.bind(photo)
-
+            holder.itemView.item_image_view.setOnClickListener{
+                photoViewModel.addPhoto(photo)
+            }
         }
-
         override fun getItemCount(): Int {
 return photo.size
         }

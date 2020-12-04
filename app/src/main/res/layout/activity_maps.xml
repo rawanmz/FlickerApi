@@ -1,42 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
+    <FrameLayout
+        android:id="@+id/Map_warp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="56dp"
-        android:text="TextView" />
+        android:layout_above="@+id/buttomNav"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/mapNav"
+        android:id="@+id/buttomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="675dp"
         android:background="?android:attr/windowBackground"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="#fff"
         app:itemTextColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintBottom_toBottomOf="@+id/Map_warp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/map"
-        app:menu="@menu/map_menu"
+        app:menu="@menu/buttom_menu"
         tools:ignore="MissingConstraints" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,39 +1,36 @@
 package com.bignerdranch.android.flickerapi
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_main.*
-
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_favorite.*
 class MainActivity : AppCompatActivity() {
+ lateinit var bottomNavigation: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-val photoGalleryFragment=PhotoGalleryFragment()
-      buttomNav.setOnNavigationItemSelectedListener {
-when(it.itemId) {
-    R.id.map -> openMapActivity()
-    R.id.home -> openPhotoGalleryFragment(photoGalleryFragment)
-}
+        val photoGalleryFragment=PhotoGalleryFragment()
+        val favoriteFragment=FavoriteFragment()
+        val mapFragment=MapsFragment()
+        makeCurrentFragment(photoGalleryFragment)
+        bottomNavigation=findViewById(R.id.buttomNav) as BottomNavigationView
+        bottomNavigation.setOnNavigationItemSelectedListener {
+        when(it.itemId) {
+            R.id.map -> makeCurrentFragment(mapFragment)
+            R.id.home -> makeCurrentFragment(photoGalleryFragment)
+            R.id.like -> makeCurrentFragment(favoriteFragment)
+        }
             true
         }
     }
-    fun openMapActivity(): Boolean {
-        val intent = Intent(this, MapsActivity::class.java)
-        startActivity(intent)
-        return true
-    }
-    fun openPhotoGalleryFragment(fragment: PhotoGalleryFragment){
+
+    fun makeCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment,fragment)
+            replace(R.id.warpper,fragment)
                 .commit()
         }
-    }
 }
