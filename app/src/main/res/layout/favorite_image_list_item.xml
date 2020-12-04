@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorite_Item"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/myimage"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+        android:layout_marginRight="10dp"
+        android:id="@+id/photoUp"
+        android:background="#000"
+        android:layout_toLeftOf="@id/nameUp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="15dp"
+        android:layout_height="15dp" />
+
+    <TextView
+        android:id="@+id/nameUp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="1000 Up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/photoLove"
+        android:src="@drawable/ic_favorite"
+        android:layout_toLeftOf="@id/nameLove"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="15dp"
+        android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/nameLove"
+            android:layout_width="wrap_content"
+            android:layout_height="104dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="1000 Love" />
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

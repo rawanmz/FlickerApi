@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<FrameLayout
-    android:id="@+id/warpper"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/buttomNav"/>
+    <FrameLayout
+        android:id="@+id/Map_warp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttomNav"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/buttomNav"
@@ -20,7 +20,7 @@
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="#fff"
         app:itemTextColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/warpper"
+        app:layout_constraintBottom_toBottomOf="@+id/Map_warp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

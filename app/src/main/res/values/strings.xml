@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">FlickerApi</string>
+    <string name="app_name">Flickr Api </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Select Location</string>
+    <string name="home">Home</string>
+    <string name="map">Map</string>
+    <string name="like">Favorite</string>
+    <string name="pick_location">Pick Location</string>
+
+
 </resources>
