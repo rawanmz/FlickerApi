@@ -13,6 +13,7 @@ data class GalleryItem(
     @SerializedName("title") var title: String = "",
     @SerializedName("id")
     @PrimaryKey var id: String = "",
+    var isLiked: Boolean = true,
     @SerializedName("url_s") var url: String = "",
     @SerializedName("owner") var owner: String = "",
     @SerializedName("latitude") var latitude: Double,

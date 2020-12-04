@@ -1,10 +1,7 @@
 package com.bignerdranch.android.flickerapi.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.bignerdranch.android.flickerapi.data.GalleryItem
 
 @Dao
@@ -14,4 +11,6 @@ interface PhotoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPhoto (vararg photo: GalleryItem)
+    @Delete
+    suspend fun deletePhoto (vararg photo: GalleryItem)
 }

@@ -18,13 +18,11 @@ class PhotoInterceptor : Interceptor{
                 .addQueryParameter("format" , "json")
                 .addQueryParameter("nojsoncallback" , "1")
                 .addQueryParameter("extras" , "url_s,geo")
-                //.addQueryParameter("min_taken_date" , "2005-01-01 00:00:00")
                 .addQueryParameter("safesearch" , "1")
                 .build()
         val newRequest : Request = originalRequest.newBuilder()
                 .url(newUrl)
                 .build()
-        Log.d(TAG,newRequest.url.toString())
         return chain.proceed(newRequest)
     }
 }

@@ -17,6 +17,11 @@ class PhotoGalleryViewModel :ViewModel(){
             flickrfitcher.addPhoto(photo)
         }
     }
+    fun deletePhoto(photo: GalleryItem) {
+        viewModelScope.launch {
+            flickrfitcher.deletePhoto(photo)
+        }
+    }
     fun fetchPhoto(lat: String, lon: String): LiveData<List<GalleryItem>> {
         return flickrfitcher.searchPhotos(lat,lon)
     }

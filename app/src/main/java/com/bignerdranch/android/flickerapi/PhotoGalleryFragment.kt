@@ -1,6 +1,9 @@
 package com.bignerdranch.android.flickerapi
 
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.Color.*
+import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
@@ -51,7 +54,7 @@ class PhotoGalleryFragment : Fragment() {
             currentlocation.lastLocation.addOnCompleteListener {task ->
                 var location = task.getResult()
                 if(location != null){
-                    var geocoder = Geocoder(requireContext(), Locale.getDefault())
+                    var geocoder = Geocoder(context, Locale.getDefault())
                     var address = geocoder.getFromLocation(
                         location.latitude,location.longitude,1
                     )
@@ -76,9 +79,20 @@ class PhotoGalleryFragment : Fragment() {
     private inner class ImageHolder(view: View) : RecyclerView.ViewHolder(view) {
         lateinit var image: GalleryItem
         var photoView:ImageView=view.findViewById(R.id.item_image_view)
+        var like: ImageView=itemView.findViewById(R.id.likeImg) as ImageView
+        var likeclicked: ImageView=itemView.findViewById(R.id.likeImgclicked) as ImageView
+
         fun bind(photo: GalleryItem){
            this.image=photo
             Log.d("fff",photo.url)
+            if (photo.isLiked) {
+                likeclicked.visibility=View.VISIBLE
+                likeclicked.setImageResource(R.drawable.ic_baseline_favorite_24)
+            }else if(photo.isLiked==false){
+                like.visibility=View.VISIBLE
+                like.setImageResource(R.drawable.ic_favorite)
+            }
+
             Glide.with(itemView)
                 .load(photo.url)
                 .centerCrop()
