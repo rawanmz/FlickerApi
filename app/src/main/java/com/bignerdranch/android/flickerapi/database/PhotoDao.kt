@@ -8,7 +8,6 @@ import com.bignerdranch.android.flickerapi.data.GalleryItem
 interface PhotoDao {
     @Query("SELECT * FROM photo_table ORDER BY id ASC ")
     fun readAllPhoto (): LiveData<List<GalleryItem>>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPhoto (vararg photo: GalleryItem)
     @Delete
