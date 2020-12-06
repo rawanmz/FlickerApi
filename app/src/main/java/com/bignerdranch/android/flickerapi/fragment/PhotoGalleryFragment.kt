@@ -1,9 +1,7 @@
-package com.bignerdranch.android.flickerapi
+package com.bignerdranch.android.flickerapi.fragment
 
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.Color.*
-import android.graphics.drawable.Drawable
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
+import com.bignerdranch.android.flickerapi.R
 import com.bignerdranch.android.flickerapi.data.GalleryItem
 import com.bignerdranch.android.flickerapi.viewmodel.PhotoGalleryViewModel
 import com.bumptech.glide.Glide
@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.image_list_item.view.*
 import java.util.*
 
 class PhotoGalleryFragment : Fragment() {
+
     private lateinit var photoViewModel:PhotoGalleryViewModel
     private lateinit var photoRecyclerView: RecyclerView
     private  var photo= emptyList<GalleryItem>()
@@ -36,6 +37,7 @@ class PhotoGalleryFragment : Fragment() {
     private var lat:Double=0.0
     private var lon:Double=0.0
     private var requestNumber = 1
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -54,10 +56,9 @@ class PhotoGalleryFragment : Fragment() {
             currentlocation.lastLocation.addOnCompleteListener {task ->
                 var location = task.getResult()
                 if(location != null){
-                    var geocoder = Geocoder(context, Locale.getDefault())
+                    var geocoder = Geocoder(requireContext(), Locale.getDefault())
                     var address = geocoder.getFromLocation(
-                        location.latitude,location.longitude,1
-                    )
+                        location.latitude,location.longitude,1)
                     lat = address[0].latitude
                     lon = address[0].longitude
                     photoViewModel.fetchPhoto(lat.toString(), lon.toString()).observe(viewLifecycleOwner, Observer {
@@ -67,8 +68,7 @@ class PhotoGalleryFragment : Fragment() {
                     ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                requestNumber
-            )
+                requestNumber)
                 }
                 }
             }
@@ -79,20 +79,9 @@ class PhotoGalleryFragment : Fragment() {
     private inner class ImageHolder(view: View) : RecyclerView.ViewHolder(view) {
         lateinit var image: GalleryItem
         var photoView:ImageView=view.findViewById(R.id.item_image_view)
-        var like: ImageView=itemView.findViewById(R.id.likeImg) as ImageView
-        var likeclicked: ImageView=itemView.findViewById(R.id.likeImgclicked) as ImageView
-
         fun bind(photo: GalleryItem){
            this.image=photo
             Log.d("fff",photo.url)
-            if (photo.isLiked) {
-                likeclicked.visibility=View.VISIBLE
-                likeclicked.setImageResource(R.drawable.ic_baseline_favorite_24)
-            }else if(photo.isLiked==false){
-                like.visibility=View.VISIBLE
-                like.setImageResource(R.drawable.ic_favorite)
-            }
-
             Glide.with(itemView)
                 .load(photo.url)
                 .centerCrop()
@@ -112,12 +101,21 @@ class PhotoGalleryFragment : Fragment() {
             return ImageHolder(view)
         }
         override fun onBindViewHolder(holder: ImageHolder, position: Int) {
-           var photo=this.photo[position]
+            var like: ImageView=holder.itemView.findViewById(R.id.likeImgclicked) as ImageView
+            val drawable = like.drawable
+            var photo=this.photo[position]
             holder.bind(photo)
             holder.itemView.item_image_view.setOnClickListener{
                 photoViewModel.apply {
                     addPhoto(photo)
-
+                    Toast.makeText(context," Added to Favorite List",Toast.LENGTH_SHORT).show()
+                    like.setAlpha(0.70f)
+                    if (drawable is AnimatedVectorDrawableCompat){
+                        (drawable as AnimatedVectorDrawableCompat).start()
+                    }else if (drawable is AnimatedVectorDrawable){
+                        (drawable as AnimatedVectorDrawable).start()
+                    }
+like.setAlpha(0.70f)
                 }
             }
         }

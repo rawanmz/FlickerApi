@@ -71,10 +71,9 @@ dependencies {
     //lottie
     def lottieVersion = "3.5.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
-     //test
-    testImplementation 'org.mockito:mockito-core:2.25.0'
-    testImplementation 'org.mockito:mockito-inline:2.25.0'
-
+//auth
+    implementation 'com.googlecode.flickrj-android:flickrj-android:2.1.0'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.26'
     // Local Unit Tests
     implementation "androidx.test:core:1.2.0"
     testImplementation "junit:junit:4.13"

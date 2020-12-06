@@ -16,12 +16,10 @@ object ServiceLocator {
     lateinit var retrofit: Retrofit
     private lateinit var photoRemoteSource: FlickrApi
     lateinit var database: PhotoGalleryDatabase
-
     fun init(app: App) {
         this.app = app
         initializeNetwork(app)
         initializeDatabase(app)
-
     }
     private fun getOkhttpClient(): OkHttpClient {
         return OkHttpClient.Builder()

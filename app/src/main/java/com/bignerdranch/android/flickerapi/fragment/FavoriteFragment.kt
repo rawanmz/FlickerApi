@@ -1,9 +1,6 @@
-package com.bignerdranch.android.flickerapi
+package com.bignerdranch.android.flickerapi.fragment
 
-import android.graphics.Color
-import android.media.Image
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bignerdranch.android.flickerapi.R
 import com.bignerdranch.android.flickerapi.data.GalleryItem
 import com.bignerdranch.android.flickerapi.viewmodel.PhotoGalleryViewModel
 import com.bumptech.glide.Glide
@@ -21,9 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
 class FavoriteFragment : Fragment() {
-//val args by navArgs<FavoriteFragmentArgs>()
     private lateinit var delete: ImageView
-
     private lateinit var pager: ViewPager2
     var photo = emptyList<GalleryItem>()
     private var adapter: FavoritePhotoAdapter = FavoritePhotoAdapter(photo)
@@ -37,7 +33,6 @@ class FavoriteFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_favorite, container, false)
         pager = view.findViewById(R.id.pager)
-        // pager.setPageTransformer(ZoomOutPageTransformer())
         photoViewModel.photos.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
@@ -52,6 +47,7 @@ class FavoriteFragment : Fragment() {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater.inflate(R.layout.favorite_image_list_item, parent, false)
             delete = view.findViewById(R.id.delete)
+
             return FavoritePhototHolder(view)
         }
         override fun onBindViewHolder(holder: FavoritePhototHolder, position: Int) {
@@ -75,11 +71,12 @@ class FavoriteFragment : Fragment() {
     }
 
     inner class FavoritePhototHolder(view: View) : RecyclerView.ViewHolder(view) {
-
+        private  var  titleTxt =itemView.findViewById(R.id.titleTxt) as TextView
         lateinit var photo: GalleryItem
         val image = itemView.findViewById(R.id.imageview) as ImageView
         fun bind(photo: GalleryItem) {
             this.photo = photo
+            titleTxt.setText(photo.title).toString()
             Glide.with(itemView)
                 .load(photo.url)
                 .centerCrop()

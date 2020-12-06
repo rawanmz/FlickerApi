@@ -1,10 +1,9 @@
-package com.bignerdranch.android.flickerapi
+package com.bignerdranch.android.flickerapi.fragment
 
 import android.graphics.drawable.Drawable
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,7 @@ import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.bignerdranch.android.flickerapi.R
 import com.bignerdranch.android.flickerapi.data.GalleryItem
 import com.bignerdranch.android.flickerapi.viewmodel.PhotoGalleryViewModel
 import com.bumptech.glide.Glide
@@ -33,7 +31,6 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_maps.*
 
 class MapsFragment : Fragment() {
     private lateinit var mMap: GoogleMap
@@ -57,7 +54,6 @@ class MapsFragment : Fragment() {
             override fun onMarkerClick(marker: Marker?): Boolean {
                 val id:String=markers.filterValues { it==marker }.keys.toList()[0]
                 val item : GalleryItem = items[id]!!
-//add listener to images
                 return true
             }
         } )
@@ -68,7 +64,6 @@ class MapsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_maps, container, false)
-        bottomNavigation=view.findViewById(R.id.mapNav) as BottomNavigationView
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         photoViewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
         floatingActionButton = view.findViewById(R.id.floatingActionButton)

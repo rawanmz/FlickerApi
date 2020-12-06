@@ -1,6 +1,7 @@
 package com.bignerdranch.android.flickerapi.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bignerdranch.android.flickerapi.ServiceLocator
@@ -23,6 +24,10 @@ class PhotoGalleryViewModel :ViewModel(){
         }
     }
     fun fetchPhoto(lat: String, lon: String): LiveData<List<GalleryItem>> {
-        return flickrfitcher.searchPhotos(lat,lon)
+        val imagelist=MutableLiveData<List<GalleryItem>>()
+        viewModelScope.launch {
+            imagelist.value= flickrfitcher.searchPhotos(lat,lon)
+        }
+        return imagelist
     }
 }
