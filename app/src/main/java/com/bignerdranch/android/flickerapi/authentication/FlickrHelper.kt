@@ -11,7 +11,6 @@ import javax.xml.parsers.ParserConfigurationException
 
 const val API_KEY = "3c51a83973ab1d283946d0ea8e62cd7a"
 const val API_SEC = "62641895549248e6"
-
 class FlickrHelper private constructor() {
     val flickr: Flickr?
         get() = try {
@@ -19,7 +18,6 @@ class FlickrHelper private constructor() {
         } catch (e: ParserConfigurationException) {
             null
         }
-
     fun getFlickrAuthed(token: String?, secret: String?): Flickr? {
         val f = flickr
         val requestContext =

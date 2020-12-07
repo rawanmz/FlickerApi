@@ -53,7 +53,6 @@ class FlickrjActivity : Activity() {
             taskUpload.execute(oauth)
         }
     }
-
     override fun onNewIntent(intent: Intent) {
         setIntent(intent)
     }

@@ -40,6 +40,7 @@ class FavoriteFragment : Fragment() {
         pager.adapter = adapter
         return view
     }
+
     inner class FavoritePhotoAdapter(var photoList: List<GalleryItem>) :
         RecyclerView.Adapter<FavoritePhototHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritePhototHolder {
@@ -50,28 +51,27 @@ class FavoriteFragment : Fragment() {
 
             return FavoritePhototHolder(view)
         }
+
         override fun onBindViewHolder(holder: FavoritePhototHolder, position: Int) {
-            var listItem = photoList[position]
+            val listItem = photoList[position]
             holder.apply {
                 bind(listItem)
                 delete.setOnClickListener {
                     photoViewModel.deletePhoto(listItem)
                 }
-
             }
         }
+
         override fun getItemCount(): Int {
             return photoList.size
         }
-
         fun setData(photo: List<GalleryItem>) {
             this.photoList = photo
             notifyDataSetChanged()
         }
     }
-
     inner class FavoritePhototHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private  var  titleTxt =itemView.findViewById(R.id.titleTxt) as TextView
+        private var titleTxt = itemView.findViewById(R.id.titleTxt) as TextView
         lateinit var photo: GalleryItem
         val image = itemView.findViewById(R.id.imageview) as ImageView
         fun bind(photo: GalleryItem) {

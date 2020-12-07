@@ -8,4 +8,7 @@
     <string name="like">Favorite</string>
     <string name="pick_location">Pick Location</string>
     <string name="upload">Upload</string>
+    <string name="normalMode">Normal mode</string>
+
+
 </resources>

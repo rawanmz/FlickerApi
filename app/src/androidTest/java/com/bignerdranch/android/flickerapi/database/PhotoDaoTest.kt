@@ -58,4 +58,5 @@ class PhotoDaoTest {
         val allPhoto=dao.readAllPhoto().getOrAwaitValue()
         assertThat(allPhoto).doesNotContain(Photo)
     }
+
 }

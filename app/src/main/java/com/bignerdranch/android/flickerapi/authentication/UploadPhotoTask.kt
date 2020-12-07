@@ -1,7 +1,6 @@
 package com.bignerdranch.android.flickerapi.authentication
 
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.Toast
