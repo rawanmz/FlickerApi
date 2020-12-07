@@ -1,10 +1,9 @@
-package com.bignerdranch.android.flickerapi
+package com.bignerdranch.android.flickerapi.fragment
 
 import android.graphics.drawable.Drawable
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,7 @@ import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.bignerdranch.android.flickerapi.R
 import com.bignerdranch.android.flickerapi.data.GalleryItem
 import com.bignerdranch.android.flickerapi.viewmodel.PhotoGalleryViewModel
 import com.bumptech.glide.Glide
@@ -33,85 +31,91 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_maps.*
 
 class MapsFragment : Fragment() {
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private var isLocateMode= false
+    private var isLocateMode = false
     private lateinit var photoViewModel: PhotoGalleryViewModel
     private lateinit var pickLocationTextView: TextView
-    lateinit var bottomNavigation: BottomNavigationView
     private lateinit var floatingActionButton: FloatingActionButton
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
-        Log.d("fff","onMapReady")
-        googleMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
-            override fun onMapClick(p0: LatLng?) {
-                Log.d("fff" , "MapClicked");
+        googleMap.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
+            override fun onMapClick(geo: LatLng?) {
                 if (isLocateMode) {
-                    loadThumbnails(p0!!);
-                }            }}
+                    loadThumbnails(geo!!)
+                }
+            }
+        }
         )
-        mMap.setOnMarkerClickListener(object:GoogleMap.OnMarkerClickListener{
+        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
             override fun onMarkerClick(marker: Marker?): Boolean {
-                val id:String=markers.filterValues { it==marker }.keys.toList()[0]
-                val item : GalleryItem = items[id]!!
-//add listener to images
+                val id: String = markers.filterValues { it == marker }.keys.toList()[0]
+                val item: GalleryItem = items[id]!!
                 return true
             }
-        } )
+        })
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_maps, container, false)
-        bottomNavigation=view.findViewById(R.id.mapNav) as BottomNavigationView
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
         photoViewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
         floatingActionButton = view.findViewById(R.id.floatingActionButton)
-        pickLocationTextView =view.findViewById(R.id.textView)
+        pickLocationTextView = view.findViewById(R.id.textView)
         floatingActionButton.setOnClickListener {
             pickLocationMode()
         }
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
     fun pickLocationMode() {
-        pickLocationTextView.setText("Normal mode")
+        pickLocationTextView.text = "Normal mode"
         isLocateMode = !isLocateMode
         if (isLocateMode) {
-            pickLocationTextView.setText("Pick Location mode")
+            pickLocationTextView.text = "Pick Location mode"
         } else {
-            pickLocationTextView.setText("Normal mode")
+            pickLocationTextView.text = "Normal mode"
         }
     }
-    var markers = mutableMapOf<String,Marker>()
+
+    var markers = mutableMapOf<String, Marker>()
     var items = mutableMapOf<String, GalleryItem>()
-    fun loadThumbnails(searchLoaction:LatLng) {
-        Log.d("fff" , "loadThumbnails");
+    fun loadThumbnails(searchLoaction: LatLng) {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLoaction, 14f))
-        photoViewModel.fetchPhoto(searchLoaction.latitude.toString(), searchLoaction.longitude.toString())
+        photoViewModel.fetchPhoto(
+            searchLoaction.latitude.toString(),
+            searchLoaction.longitude.toString()
+        )
             .observe(this, Observer {
                 it.forEach {
-                    var url = it.url
+                    val url = it.url
                     Glide.with(this)
                         .load(url).into(object : CustomTarget<Drawable>() {
                             override fun onLoadCleared(placeholder: Drawable?) {
                             }
-                            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+
+                            override fun onResourceReady(
+                                resource: Drawable,
+                                transition: Transition<in Drawable>?
+                            ) {
                                 val location = LatLng(it.latitude, it.longitude)
-                                var marker = MarkerOptions()
+                                val marker = MarkerOptions()
                                     .position(location)
                                     .icon(BitmapDescriptorFactory.fromBitmap(resource.toBitmap()))
-                                markers[it.id]= mMap.addMarker(marker)
-                                items[it.id] = it;
+                                markers[it.id] = mMap.addMarker(marker)
+                                items[it.id] = it
                             }
                         })
                 }

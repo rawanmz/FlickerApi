@@ -18,7 +18,6 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-
 @SmallTest
 class PhotoDaoTest {
 
@@ -59,4 +58,5 @@ class PhotoDaoTest {
         val allPhoto=dao.readAllPhoto().getOrAwaitValue()
         assertThat(allPhoto).doesNotContain(Photo)
     }
+
 }

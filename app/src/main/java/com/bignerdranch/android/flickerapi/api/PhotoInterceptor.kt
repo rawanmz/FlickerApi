@@ -1,13 +1,11 @@
 package com.bignerdranch.android.flickerapi.api
 
-import android.util.Log
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import retrofit2.http.Query
 
-private const val API_KEY = "bee14d7a30ad17b9d4c87cd87770b0ff"
+private const val API_KEY = "3c51a83973ab1d283946d0ea8e62cd7a"
 private const val TAG = "PhotoInterceptor"
 
 class PhotoInterceptor : Interceptor{

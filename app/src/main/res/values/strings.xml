@@ -7,6 +7,14 @@
     <string name="map">Map</string>
     <string name="like">Favorite</string>
     <string name="pick_location">Pick Location</string>
+    <string name="upload">Upload</string>
+    <string name="normalMode">Normal mode</string>
+    <string name="uploadPhoto">Please Upload Photo</string>
+    <string name="Authorization_failed">Authorization failed</string>
+    <string name="Authorization_Genrating">Generating the Authorization Request</string>
+    <string name="Authorization_successfu">Uploaded Successfully </string>
+    <string name="DeletedSuccessfully">Deleted Successfully</string>
+    <string name="AddedToFavorite">Added to Favorite List</string>
 
 
 </resources>
