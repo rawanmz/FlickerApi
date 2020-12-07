@@ -38,16 +38,13 @@ class MapsFragment : Fragment() {
     private var isLocateMode = false
     private lateinit var photoViewModel: PhotoGalleryViewModel
     private lateinit var pickLocationTextView: TextView
-    lateinit var bottomNavigation: BottomNavigationView
     private lateinit var floatingActionButton: FloatingActionButton
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
-        Log.d("fff", "onMapReady")
         googleMap.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
-            override fun onMapClick(p0: LatLng?) {
-                Log.d("fff", "MapClicked")
+            override fun onMapClick(geo: LatLng?) {
                 if (isLocateMode) {
-                    loadThumbnails(p0!!)
+                    loadThumbnails(geo!!)
                 }
             }
         }
@@ -83,7 +80,6 @@ class MapsFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
-
     fun pickLocationMode() {
         pickLocationTextView.text = "Normal mode"
         isLocateMode = !isLocateMode
@@ -97,7 +93,6 @@ class MapsFragment : Fragment() {
     var markers = mutableMapOf<String, Marker>()
     var items = mutableMapOf<String, GalleryItem>()
     fun loadThumbnails(searchLoaction: LatLng) {
-        Log.d("fff", "loadThumbnails")
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLoaction, 14f))
         photoViewModel.fetchPhoto(
             searchLoaction.latitude.toString(),

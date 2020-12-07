@@ -46,7 +46,7 @@ class AuthenticationFragment : Fragment() {
     }
     var mFlickrClickListener = View.OnClickListener {
         if (fileUri == null) {
-            Toast.makeText(context, "Please Upload Photo", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.uploadPhoto, Toast.LENGTH_SHORT).show()
             return@OnClickListener
         }
         val intent = Intent(context, FlickrjActivity::class.java

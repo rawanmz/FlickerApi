@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import com.bignerdranch.android.flickerapi.R
 import com.googlecode.flickrjandroid.oauth.OAuth
 import com.googlecode.flickrjandroid.oauth.OAuthToken
 import com.googlecode.flickrjandroid.people.User
@@ -87,8 +88,7 @@ class FlickrjActivity : Activity() {
 
     fun onOAuthDone(result: OAuth?) {
         if (result == null) {
-            Toast.makeText(
-                this, "Authorization failed",  //$NON-NLS-1$
+            Toast.makeText(this, R.string.Authorization_failed,  //$NON-NLS-1$
                 Toast.LENGTH_LONG
             ).show()
         } else {
@@ -97,7 +97,7 @@ class FlickrjActivity : Activity() {
             if (user == null || user.id == null || token == null || token.oauthToken == null || token.oauthTokenSecret == null
             ) {
                 Toast.makeText(
-                    this, "Authorization failed",  //$NON-NLS-1$
+                    this, R.string.Authorization_failed,  //$NON-NLS-1$
                     Toast.LENGTH_LONG
                 ).show()
                 return

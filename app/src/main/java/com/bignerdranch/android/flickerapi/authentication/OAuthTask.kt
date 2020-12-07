@@ -18,7 +18,7 @@ class OAuthTask(private val mContext: Context) :
     override fun onPreExecute() {
         super.onPreExecute()
         myProgressDialog =
-            ProgressDialog.show(mContext, "", "Generating the Authorization Request.")
+            ProgressDialog.show(mContext, "", "Generating the Authorization Request")
         myProgressDialog.setCanceledOnTouchOutside(true)
         myProgressDialog.setCancelable(true)
         myProgressDialog.setOnCancelListener(

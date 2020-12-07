@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.Toast
+import com.bignerdranch.android.flickerapi.R
 import com.googlecode.flickrjandroid.Flickr
 import com.googlecode.flickrjandroid.oauth.OAuth
 import com.googlecode.flickrjandroid.uploader.UploadMetaData
@@ -40,7 +41,7 @@ class UploadPhotoTask(
         }
         Toast.makeText(
             flickerActivity.applicationContext,
-            " Uploaded Successfully", Toast.LENGTH_SHORT
+            R.string.Authorization_successfu, Toast.LENGTH_SHORT
         ).show()
     }
 

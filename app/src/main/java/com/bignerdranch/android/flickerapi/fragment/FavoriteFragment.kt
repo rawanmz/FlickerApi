@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,6 @@ class FavoriteFragment : Fragment() {
     private val photoViewModel: PhotoGalleryViewModel by lazy {
         ViewModelProviders.of(this).get(PhotoGalleryViewModel::class.java)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,11 +36,9 @@ class FavoriteFragment : Fragment() {
         photoViewModel.photos.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
-
         pager.adapter = adapter
         return view
     }
-
     inner class FavoritePhotoAdapter(var photoList: List<GalleryItem>) :
         RecyclerView.Adapter<FavoritePhototHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritePhototHolder {
@@ -58,6 +56,7 @@ class FavoriteFragment : Fragment() {
                 bind(listItem)
                 delete.setOnClickListener {
                     photoViewModel.deletePhoto(listItem)
+                    Toast.makeText(context,R.string.DeletedSuccessfully,Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -88,7 +87,6 @@ class FavoriteFragment : Fragment() {
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .fallback(R.drawable.ic_launcher_foreground)
                 .into(image)
-
         }
     }
 }

@@ -86,7 +86,7 @@ class PhotoGalleryFragment : Fragment() {
         var photoView: ImageView = view.findViewById(R.id.item_image_view)
         fun bind(photo: GalleryItem) {
             this.image = photo
-            Log.d("fff", photo.url)
+            Log.d("Photo Title", photo.url)
             Glide.with(itemView)
                 .load(photo.url)
                 .centerCrop()
@@ -116,7 +116,7 @@ class PhotoGalleryFragment : Fragment() {
             holder.itemView.item_image_view.setOnClickListener {
                 photoViewModel.apply {
                     addPhoto(photo)
-                    Toast.makeText(context, " Added to Favorite List", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.AddedToFavorite, Toast.LENGTH_SHORT).show()
                     like.alpha = 0.70f
                     if (drawable is AnimatedVectorDrawableCompat) {
                         drawable.start()
